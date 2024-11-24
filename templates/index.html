@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" style="display:flex;gap:1em;">
+
+        <iframe id="mapFrame" width="800px" height="600px" src="{{ url_for('static', filename='map.html') }}"></iframe>
+        <div class="right-side">
+            <div class="check">
+                <button style="width:100%;height:200px;background-color: red;color:white;" onclick="executeCommands()">
+                    Son 2 Saat
+                </button>
+
+                <div id="message" style="margin-top: 20px;"></div>
+
+                <script>
+                    function executeCommands() {
+                        // Add a red message to the page
+                        const messageDiv = document.getElementById('message');
+                        messageDiv.innerHTML = '<h3 style="color: red;">Bu işlem uzun sürecek lütfen site yenilenene kadar bekleyiniz.</h3>';
+
+                        // Redirect the user to the desired URL
+                        location.href = '/last_2';
+                    }
+                </script>
+            </div>
+            <div class="unclear-messages">
+                <h1>Anlaşılmayan Mesajlar</h1>
+                {% for m in data%}
+                <p>{{ m }}</p>
+                {% endfor %}
+            </div>
+            <div class="last-added-locations">
+                <h1>En son eklenen lokasyonlar</h1>
+                {%for i in markers%}
+                <p>{{ i }}</p>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

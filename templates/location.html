@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .section h3 {
+            margin-top: 0;
+        }
+        .results {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Location Management</h1>
+
+    <div class="section" id="search-section">
+        <h3>Search Location</h3>
+        <input type="text" id="search-input" placeholder="Enter message" />
+        <button onclick="searchLocation()">Search</button>
+        <div class="results" id="search-results"></div>
+    </div>
+
+    <div class="section" id="add-section">
+        <h3>Add New Location</h3>
+        <input type="text" id="new-name" placeholder="Enter name" />
+        <input type="text" id="new-lat" placeholder="Enter latitude" />
+        <input type="text" id="new-lon" placeholder="Enter longitude" />
+        <button onclick="addLocation()">Add</button>
+        <div class="results" id="add-results"></div>
+    </div>
+
+    <div class="section" id="view-section">
+        <h3>View All Locations</h3>
+        <button onclick="viewLocations()">View Locations</button>
+        <div class="results" id="view-results"></div>
+    </div>
+
+    <script>
+        async function searchLocation() {
+            const message = document.getElementById("search-input").value;
+            const response = await fetch("/search", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message }),
+            });
+            const data = await response.json();
+            const resultsDiv = document.getElementById("search-results");
+            if (data.found) {
+                resultsDiv.innerHTML = `<p>Location found: ${JSON.stringify(data.location)}</p>`;
+            } else {
+                resultsDiv.innerHTML = "<p>Location not found.</p>";
+            }
+        }
+
+        async function addLocation() {
+            const name = document.getElementById("new-name").value;
+            const lat = document.getElementById("new-lat").value;
+            const lon = document.getElementById("new-lon").value;
+            const response = await fetch("/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, lat, lon }),
+            });
+            const data = await response.json();
+            const resultsDiv = document.getElementById("add-results");
+            if (data.success) {
+                resultsDiv.innerHTML = `<p>Location added: ${JSON.stringify(data.location)}</p>`;
+            } else {
+                resultsDiv.innerHTML = `<p>Error: ${data.message}</p>`;
+            }
+        }
+
+        async function viewLocations() {
+            const response = await fetch("/locations");
+            const data = await response.json();
+            const resultsDiv = document.getElementById("view-results");
+            resultsDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+    </script>
+</body>
+</html>
