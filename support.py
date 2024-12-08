@@ -14,7 +14,7 @@ import locale
 
 locale.setlocale(locale.LC_ALL, "tr_TR.UTF-8")
 
-def read_config(section, option,file_path="/Users/DoganAliSan/Projects/Python/Keys/keys.ini"):
+def read_config(section, option,file_path="keys.ini"):
     """Incase of an api usage keys must be stored carefully.
     To do so a settings.ini file may be used which this function reads from.
     
