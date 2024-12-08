@@ -20,3 +20,7 @@ How to Use:
 The app requires API keys for certain features (e.g., mapping and geolocation services). However, you can explore the app at doganalisan.com to see it in action without needing to set up the project yourself.
 
 This version adds more clarity, professionalism, and gives potential clients an overview of the project and technologies used, making it more suitable for showcasing your skills on Upwork.
+
+#Recent Update
+This project is no longer available in doganalisan.com, the channel used in this project is closed to public therefor my code cannot access any more of messages. :(
+	

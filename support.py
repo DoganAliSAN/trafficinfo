@@ -349,10 +349,8 @@ async def check_last_2_hours():
     # Replace these values with your API ID and hash
     API_ID = read_config("TELEGRAM", "api_id")
     API_HASH = read_config("TELEGRAM", "api_hash")
-
     # Replace 'your_username' with your Telegram username
     USERNAME = read_config("TELEGRAM", "username")
-
     app = Client(USERNAME, API_ID, API_HASH)
 
     # if exists remove markers.txt
